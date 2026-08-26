@@ -1,169 +1,169 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { 
-  Search, LayoutGrid, MessageSquare, CreditCard, Mail, 
-  HardDrive, Users, LifeBuoy, Clock, FileText, Banknote, 
-  Megaphone, ChevronRight, BookOpen, UserCircle, Bell
+  Search, Bell, Clock, FileText, Banknote, 
+  Megaphone, UserCircle, ChevronRight 
 } from 'lucide-react';
 
-export default function EnterpriseDashboard() {
+export default function EnterpriseHub() {
   const currentUser = { name: 'Pavan Kumar', role: 'Managing Director', initials: 'PK' };
   
-  // Core Apps (The big pills in the center)
+  // Custom branded apps
   const enterpriseApps = [
-    { name: 'CHAT', url: 'https://chat.jyanipur.com', icon: MessageSquare },
-    { name: 'ERP', url: 'https://erp.jyanipur.com', icon: CreditCard },
-    { name: 'MAIL', url: 'https://mail.jyanipur.com', icon: Mail },
-    { name: 'CAD', url: 'https://cad.jyanipur.com', icon: HardDrive },
-    { name: 'HR', url: 'https://hr.jyanipur.com', icon: Users },
-    { name: 'IT', url: 'https://help.jyanipur.com', icon: LifeBuoy },
+    { shortName: 'CHAT', url: 'https://chat.jyanipur.com' },
+    { shortName: 'ERP', url: 'https://erp.jyanipur.com' },
+    { shortName: 'MAIL', url: 'https://mail.jyanipur.com' },
+    { shortName: 'CAD', url: 'https://cad.jyanipur.com' },
+    { shortName: 'HR', url: 'https://hr.jyanipur.com' },
+    { shortName: 'IT', url: 'https://help.jyanipur.com' },
   ];
 
-  // News & Updates Feed
+  // Quick Action Links (T&E, Payslips)
+  const quickActions = [
+    { icon: Clock, name: 'Time & Expense (T&E)' },
+    { icon: Banknote, name: 'Payslips & Tax Forms' },
+    { icon: FileText, name: 'Leave Requests' },
+    { icon: UserCircle, name: 'Employee Directory' },
+  ];
+
+  // News Feed
   const updates = [
-    { date: 'Oct 26', title: 'Q3 Townhall Meeting Scheduled for Friday', category: 'Announcement' },
-    { date: 'Oct 24', title: 'New T&E Submission Guidelines for Site Visits', category: 'Finance' },
-    { date: 'Oct 22', title: 'Diwali Bonus & October Payslips Generated', category: 'HR' },
+    { date: 'Oct 26', title: 'Q3 Townhall Meeting Scheduled for Friday', tag: 'Notice' },
+    { date: 'Oct 24', title: 'New T&E Submission Guidelines for Site Visits', tag: 'Finance' },
+    { date: 'Oct 22', title: 'Diwali Bonus & October Payslips Generated', tag: 'HR' },
   ];
 
   return (
-    <div className="flex h-screen bg-[#F8FAFC] font-sans text-slate-900 overflow-hidden selection:bg-[#B35900]/20">
+    <div className="min-h-screen bg-slate-50/50 font-sans text-slate-900 selection:bg-[#B35900]/20">
       
-      {/* --- ENTERPRISE SIDEBAR --- */}
-      <aside className="w-[280px] bg-white border-r border-slate-200 flex-shrink-0 flex flex-col relative z-20 shadow-sm">
-        
-        {/* Brand Header */}
-        <div className="h-20 px-6 flex items-center gap-3 border-b border-slate-100">
-          <div className="w-8 h-8 rounded bg-[#B35900] flex items-center justify-center">
-            <LayoutGrid className="w-4 h-4 text-white" />
+      {/* --- MODERN TOP NAV --- */}
+      <header className="h-16 bg-white border-b border-slate-200 px-6 sm:px-10 flex items-center justify-between sticky top-0 z-50 shadow-sm">
+        <div className="flex items-center gap-3">
+          {/* YOUR ACTUAL LOGO IS BACK */}
+          <div className="w-8 h-8 relative flex items-center justify-center">
+            <Image src="/logo.png" alt="Jyanipur Logo" fill className="object-contain" priority />
           </div>
           <span className="font-extrabold text-xl tracking-[0.2em] uppercase text-slate-900 mt-1">Jyanipur</span>
         </div>
-
-        <div className="flex-1 py-6 px-4 space-y-6 overflow-y-auto custom-scrollbar">
-          
-          {/* Section: Employee Self Service */}
-          <div>
-            <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">My HR & Finance</p>
-            <div className="space-y-1">
-              <SidebarLink icon={<Clock className="w-4 h-4" />} text="Time & Expense (T&E)" />
-              <SidebarLink icon={<Banknote className="w-4 h-4" />} text="Payslips & Tax Forms" />
-              <SidebarLink icon={<FileText className="w-4 h-4" />} text="Leave Requests" />
-              <SidebarLink icon={<UserCircle className="w-4 h-4" />} text="Employee Directory" />
-            </div>
-          </div>
-
-          {/* Section: Core Systems */}
-          <div>
-            <p className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">Core Systems</p>
-            <div className="space-y-1">
-              <SidebarLink icon={<CreditCard className="w-4 h-4" />} text="Jyanipur ERP Portal" />
-              <SidebarLink icon={<HardDrive className="w-4 h-4" />} text="CAD Document Vault" />
-              <SidebarLink icon={<BookOpen className="w-4 h-4" />} text="Company Policies" />
-              <SidebarLink icon={<LifeBuoy className="w-4 h-4" />} text="IT Service Desk" />
-            </div>
-          </div>
-          
-          {/* Section: Company News Widget directly in Sidebar */}
-          <div className="mt-8 bg-slate-50 border border-slate-100 rounded-xl p-4">
-            <h3 className="text-xs font-bold text-slate-800 uppercase tracking-wider mb-3 flex items-center gap-2">
-              <Megaphone className="w-4 h-4 text-[#B35900]" /> Latest Updates
-            </h3>
-            <div className="space-y-3">
-              {updates.map((update, i) => (
-                <div key={i} className="group cursor-pointer">
-                  <div className="flex items-center gap-2 mb-0.5">
-                    <span className="text-[9px] font-bold text-[#B35900] bg-[#B35900]/10 px-1.5 py-0.5 rounded uppercase tracking-wider">{update.category}</span>
-                    <span className="text-[10px] text-slate-400 font-medium">{update.date}</span>
-                  </div>
-                  <p className="text-xs font-semibold text-slate-700 group-hover:text-[#B35900] transition-colors leading-relaxed">
-                    {update.title}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-        </div>
-      </aside>
-
-      {/* --- MAIN WORKSPACE --- */}
-      <div className="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50/50">
         
-        {/* Top Header */}
-        <header className="h-20 px-8 flex items-center justify-end w-full border-b border-slate-200 bg-white">
-          <div className="flex items-center gap-5">
-            <button className="relative p-2 text-slate-400 hover:text-slate-600 transition-colors">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-1 right-1.5 w-2 h-2 bg-rose-500 rounded-full border border-white"></span>
-            </button>
-            <div className="h-6 w-[1px] bg-slate-200"></div>
-            <div className="flex items-center gap-3">
-              <div className="text-right">
-                <p className="text-sm font-bold text-slate-900">{currentUser.name}</p>
-                <p className="text-[11px] font-medium text-slate-500 uppercase tracking-widest">{currentUser.role}</p>
-              </div>
-              <div className="w-10 h-10 rounded-full bg-slate-100 text-[#B35900] border border-slate-200 font-bold flex items-center justify-center text-sm shadow-sm">
-                {currentUser.initials}
-              </div>
+        <div className="flex items-center gap-6">
+          <button className="relative text-slate-400 hover:text-[#B35900] transition-colors">
+            <Bell className="w-5 h-5" />
+            <span className="absolute -top-1 -right-1 w-2 h-2 bg-rose-500 rounded-full border border-white"></span>
+          </button>
+          <div className="h-5 w-[1px] bg-slate-200 hidden sm:block"></div>
+          <div className="flex items-center gap-3">
+            <div className="text-right hidden sm:block">
+              <p className="text-sm font-bold text-slate-900 leading-tight">{currentUser.name}</p>
+              <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">{currentUser.role}</p>
+            </div>
+            <div className="w-9 h-9 rounded-full bg-[#B35900] text-white border-2 border-white font-bold flex items-center justify-center text-sm shadow-sm ring-1 ring-slate-100">
+              {currentUser.initials}
             </div>
           </div>
-        </header>
+        </div>
+      </header>
 
-        {/* Main Content Area */}
-        <main className="flex-1 overflow-y-auto pt-16 sm:pt-24 px-8 flex flex-col items-center">
-          
-          <h1 className="text-3xl sm:text-4xl font-semibold text-slate-900 mb-8 tracking-tight">
+      {/* --- MAIN HUB CONTENT --- */}
+      <main className="max-w-[1200px] mx-auto pt-12 pb-24 px-6">
+        
+        {/* Hero Section */}
+        <div className="text-center mb-12">
+          <h1 className="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight mb-8">
             Good evening, Pavan.
           </h1>
           
           {/* Universal Search Bar */}
-          <div className="w-full max-w-2xl relative mb-16">
-            <Search className="w-5 h-5 absolute left-6 top-1/2 -translate-y-1/2 text-slate-400" />
+          <div className="w-full max-w-2xl mx-auto relative group">
+            <Search className="w-5 h-5 absolute left-6 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-[#B35900] transition-colors" />
             <input 
               type="text" 
-              placeholder="Search apps, employees, documents, or policies..." 
+              placeholder="Search for apps, T&E sheets, people, or resources..." 
               className="w-full pl-14 pr-6 py-4 bg-white hover:bg-slate-50 focus:bg-white border border-slate-200 focus:border-[#B35900]/50 rounded-full text-base outline-none transition-all shadow-sm focus:shadow-md"
             />
           </div>
+        </div>
 
-          {/* Quick Launch Pills */}
-          <div className="w-full max-w-3xl">
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6 text-center">Quick Launch</p>
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
-              {enterpriseApps.map((app) => (
-                <a 
-                  key={app.name} 
-                  href={app.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="group flex items-center justify-center gap-3 bg-[#B35900] hover:bg-[#8C4600] px-8 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1 cursor-pointer w-44"
-                >
-                  <app.icon className="w-5 h-5 text-white/90 group-hover:text-white transition-colors" />
-                  <span className="text-white text-base font-bold tracking-widest uppercase mt-0.5">
-                    {app.name}
-                  </span>
-                </a>
-              ))}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+          
+          {/* Left Column (Apps & Quick Actions) */}
+          <div className="lg:col-span-2 space-y-10">
+            
+            {/* Quick Actions (T&E, Payslips) */}
+            <div>
+              <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">HR & Finance</h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {quickActions.map((action) => (
+                  <button key={action.name} className="flex items-center justify-between p-4 bg-white border border-slate-200 rounded-xl hover:border-[#B35900]/40 hover:shadow-sm transition-all group">
+                    <div className="flex items-center gap-3">
+                      <div className="p-2 rounded-lg bg-slate-50 text-slate-600 group-hover:bg-[#B35900]/10 group-hover:text-[#B35900] transition-colors">
+                        <action.icon className="w-4 h-4" />
+                      </div>
+                      <span className="text-sm font-semibold text-slate-700 group-hover:text-slate-900">{action.name}</span>
+                    </div>
+                    <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-[#B35900] transition-colors" />
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Core Enterprise Apps (Teak Pills) */}
+            <div>
+              <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Workspace Launchpad</h2>
+              <div className="flex flex-wrap gap-4">
+                {enterpriseApps.map((app) => (
+                  <a 
+                    key={app.shortName} 
+                    href={app.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center gap-3 bg-[#B35900] hover:bg-[#8C4600] px-7 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 cursor-pointer flex-1 sm:flex-none min-w-[160px]"
+                  >
+                    {/* Note: Ensure logo.png is in your public folder! */}
+                    <div className="w-5 h-5 relative flex items-center justify-center">
+                      <Image src="/logo.png" alt={`${app.shortName} Logo`} fill className="object-contain brightness-0 invert" />
+                    </div>
+                    <span className="text-white text-lg font-bold tracking-widest uppercase mt-0.5">
+                      {app.shortName}
+                    </span>
+                  </a>
+                ))}
+              </div>
+            </div>
+
+          </div>
+
+          {/* Right Column (News Pulse) */}
+          <div className="lg:col-span-1">
+            <h2 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Company Pulse</h2>
+            <div className="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm">
+              <div className="flex items-center gap-2 mb-6">
+                <Megaphone className="w-5 h-5 text-[#B35900]" />
+                <h3 className="font-bold text-slate-800">Latest Updates</h3>
+              </div>
+              <div className="space-y-5">
+                {updates.map((update, i) => (
+                  <div key={i} className="group cursor-pointer border-b border-slate-100 last:border-0 pb-4 last:pb-0">
+                    <div className="flex items-center justify-between mb-1">
+                      <span className="text-[9px] font-bold text-[#B35900] bg-[#B35900]/10 px-2 py-0.5 rounded uppercase tracking-wider">{update.tag}</span>
+                      <span className="text-[10px] text-slate-400 font-medium">{update.date}</span>
+                    </div>
+                    <p className="text-sm font-semibold text-slate-700 group-hover:text-[#B35900] transition-colors leading-relaxed">
+                      {update.title}
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <button className="w-full mt-4 py-2 bg-slate-50 hover:bg-slate-100 text-slate-600 text-xs font-bold rounded-lg transition-colors border border-slate-200">
+                View All Announcements
+              </button>
             </div>
           </div>
 
-        </main>
-      </div>
+        </div>
+      </main>
     </div>
-  );
-}
-
-// Helper component for clean sidebar links
-function SidebarLink({ icon, text }: { icon: React.ReactNode, text: string }) {
-  return (
-    <button className="w-full flex items-center justify-between px-3 py-2.5 text-slate-600 hover:bg-[#B35900]/10 hover:text-[#B35900] rounded-lg font-medium text-sm transition-colors group">
-      <div className="flex items-center gap-3">
-        {icon}
-        <span>{text}</span>
-      </div>
-      <ChevronRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
-    </button>
   );
 }
